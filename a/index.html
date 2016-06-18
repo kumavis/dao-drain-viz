@@ -1,0 +1,59 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>B E E F Y</title>
+    <style>
+
+.node {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+.link {
+  stroke: #999;
+  stroke-opacity: .6;
+}
+
+</style>
+</head>
+<body>
+    <script type="text/javascript">
+;(function live() { (function liveReloadCode(lastUpdate, updateRate) {
+  setTimeout(iter, updateRate)
+
+  function iter() {
+    var xhr = new XMLHttpRequest()
+
+    xhr.open('GET', '/-/live-reload')
+    xhr.onreadystatechange = function() {
+      if(xhr.readyState !== 4) {
+        return
+      }
+
+      try {
+        var change = JSON.parse(xhr.responseText).lastUpdate
+
+        if(lastUpdate < change) {
+          window.location.reload()
+
+          return
+        }
+      } catch(err) {
+      }
+
+      xhr =
+      xhr.onreadystatechange = null
+      setTimeout(iter, updateRate)
+    }
+
+    xhr.send(null)
+  }
+}
+
+)(1466197993260,1000) })()
+</script>
+<script src="/index.js" type="text/javascript"></script>
+</body>
+</html>
