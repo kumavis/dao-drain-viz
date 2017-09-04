@@ -1,6 +1,19 @@
 const async = require('async')
 const Raphael = require('./raphael.js')
 const traceData = require('../trace.json')
+const contractNicknames = {
+  '0xbb9bc244d798123fde783fcc1c72d3bb8c189413': 'TheDAO',
+  '0x304a554a310c7e546dfe434669c62820b7d83490': 'DarkDAO',
+  '0xc0ee9db1a9e07ca63e4ff0d5fb6f86bf68d47b89': 'AttackerProxy-c0ee',
+  '0xf835a0247b0063c04ef22006ebe57c5f11977cc4': 'AttackerProxy-f835',
+  '0x4a574510c7014e4ae985403536074abe582adfc8': 'DAO-Creator',
+  '0x807640a13483f8ac783c557fcdf27be11ea4ac7a': 'TheDAO extraBalance',
+  '0xda4a4626d3e16e094de3225a751aab7128e96526': 'CuratorMultiSig',
+  '0x969837498944ae1dc0dcac2d0c65634c88729b2d': 'Attacker',
+  '0x914d1b8b43e92723e64fd0a06f5bdb8dd9b10c79': 'DarkDAO extraBalance',
+  '0xd2e16a20dd7b1ae54fb0312209784478d069c7b0': 'TheDAO rewardAccount',
+  '0x1d29edb6997993a16c5086733cfd735d01df787c': 'TheDAO DAOrewardAccount',
+}
 
 // format data for graph
 var graphData = { nodes: [], links: [] }
@@ -67,7 +80,7 @@ var nodes = graphData.nodes.map((item, index) => {
 var labels = paper.set()
 nodes.forEach((node,index) => {
   var account = graphData.nodes[index]
-  var text = paper.text(320, 450, account.address.slice(0,8))
+  var text = paper.text(320, 450, getNodeLabel(account.address))
   var angle = 360*(index/graphData.nodes.length)
   // var transform = `r${angle} 320 240`
   // text.attr({ transform: transform })
@@ -99,7 +112,9 @@ var links = graphData.links.map((linkData, index) => {
   return line
 })
 
-async.eachSeries(links, animateLink)
+// setTimeout(function(){
+  async.eachSeries(links, animateLink)
+// }, 10000)
 
 function animateLink(link, cb){
   async.series([
@@ -126,6 +141,11 @@ function animateLink(link, cb){
 
 
 // util
+
+function getNodeLabel(address){
+  var nickname = contractNicknames[address]
+  return nickname || address.slice(0,8)
+}
 
 function valuesFor(obj){
   return Object.keys(obj).map(key=>obj[key])
