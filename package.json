@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "mkdir -p dist && browserify e/index.js -o dist/index.js && cp e/*.{css,html} dist/"
   },
   "author": "",
   "license": "ISC",
@@ -13,5 +14,8 @@
     "d3": "^3.5.17",
     "raphael": "^2.2.0",
     "raphael-browserify": "^2.1.0"
+  },
+  "devDependencies": {
+    "browserify": "^17.0.0"
   }
 }
